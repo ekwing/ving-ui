@@ -1,0 +1,33 @@
+@import url(//at.alicdn.com/t/font_1084086_i5umtw1iajk.css);
+
+[class^="ek-icon-"], [class*=" ek-icon-"] {
+  display: inline-block;
+  
+  /* use !important to prevent issues with browser extensions that change fonts */
+  line-height: 1;
+  vertical-align: baseline;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.ek-icon-loading {
+  animation: rotating 2s linear infinite;
+}
+
+.ek-icon--right {
+  margin-left: 5px;
+}
+.ek-icon--left {
+  margin-right: 5px;
+}
+
+@keyframes rotating {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  100% {
+    transform: rotateZ(360deg);
+  }
+}

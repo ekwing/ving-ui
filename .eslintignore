@@ -1,0 +1,9 @@
+node_modules
+lib
+public
+examples/play
+*.sh
+*.md
+*.scss
+*.woff
+*.ttf

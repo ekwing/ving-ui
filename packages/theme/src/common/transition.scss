@@ -1,0 +1,98 @@
+
+.fade-in-linear-enter-active,
+.fade-in-linear-leave-active {
+  transition: $--fade-linear-transition;
+}
+.fade-in-linear-enter,
+.fade-in-linear-leave,
+.fade-in-linear-leave-active {
+  opacity: 0;
+}
+
+.ek-fade-in-linear-enter-active,
+.ek-fade-in-linear-leave-active {
+  transition: $--fade-linear-transition;
+}
+.ek-fade-in-linear-enter,
+.ek-fade-in-linear-leave,
+.ek-fade-in-linear-leave-active {
+  opacity: 0;
+}
+
+.ek-fade-in-enter-active,
+.ek-fade-in-leave-active {
+  transition: all .3s cubic-bezier(.55,0,.1,1);
+}
+.ek-fade-in-enter,
+.ek-fade-in-leave-active {
+  opacity: 0;
+}
+
+.ek-zoom-in-center-enter-active,
+.ek-zoom-in-center-leave-active {
+  transition: all .3s cubic-bezier(.55,0,.1,1);
+}
+.ek-zoom-in-center-enter,
+.ek-zoom-in-center-leave-active {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.ek-zoom-in-top-enter-active,
+.ek-zoom-in-top-leave-active {
+  opacity: 1;
+  transition: $--md-fade-transition;
+  transform: scaleY(1);
+  transform-origin: center top;
+}
+.ek-zoom-in-top-enter,
+.ek-zoom-in-top-leave-active {
+  opacity: 0;
+  transform: scaleY(0);
+}
+
+.ek-zoom-in-bottom-enter-active,
+.ek-zoom-in-bottom-leave-active {
+  opacity: 1;
+  transition: $--md-fade-transition;
+  transform: scaleY(1);
+  transform-origin: center bottom;
+}
+.ek-zoom-in-bottom-enter,
+.ek-zoom-in-bottom-leave-active {
+  opacity: 0;
+  transform: scaleY(0);
+}
+
+.ek-zoom-in-left-enter-active,
+.ek-zoom-in-left-leave-active {
+  opacity: 1;
+  transition: $--md-fade-transition;
+  transform: scale(1, 1);
+  transform-origin: top left;
+}
+.ek-zoom-in-left-enter,
+.ek-zoom-in-left-leave-active {
+  opacity: 0;
+  transform: scale(.45, .45);
+}
+
+.collapse-transition {
+  transition: 0.3s height ease-in-out, 0.3s padding-top ease-in-out, 0.3s padding-bottom ease-in-out;
+}
+.horizontal-collapse-transition {
+  transition: 0.3s width ease-in-out, 0.3s padding-left ease-in-out, 0.3s padding-right ease-in-out;
+}
+
+.ek-list-enter-active,
+.ek-list-leave-active {
+  transition: all 1s;
+}
+.ek-list-enter, .ek-list-leave-active {
+  opacity: 0;
+  transform: translateY(-30px);
+}
+
+.ek-opacity-transition {
+  transition: opacity .3s cubic-bezier(.55,0,.1,1);
+}
