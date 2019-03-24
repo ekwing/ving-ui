@@ -1,4 +1,4 @@
-import { Component, Vue, Prop } from 'vue-property-decorator'
+import { Component, Vue, Prop, Watch } from 'vue-property-decorator'
 import merge from '@/utils/merge'
 import PopupManager from '@/utils/popup/popup-manager'
 
@@ -65,23 +65,22 @@ export default class PopupComponent extends Vue {
     this.restoreBodyStyle()
   }
 
-  // watch: {
-  //   visible(val) {
-  //     if (val) {
-  //       if (this._opening) return
-  //       if (!this.rendered) {
-  //         this.rendered = true
-  //         Vue.nextTick(() => {
-  //           this.open()
-  //         })
-  //       } else {
-  //         this.open()
-  //       }
-  //     } else {
-  //       this.close()
-  //     }
-  //   }
-  // }
+  @Watch('visible')
+  onVisibleChange(val: boolean) {
+    if (val) {
+      if (this._opening) return
+      if (!this.rendered) {
+        this.rendered = true
+        this.$nextTick(() => {
+          this.open()
+        })
+      } else {
+        this.open()
+      }
+    } else {
+      this.close()
+    }
+  }
 
   open(options) {
     if (!this.rendered) {

@@ -4,11 +4,11 @@ import MenuItem from './aria-menuitem'
 export default class SubMenu {
   subMenuItems: NodeListOf<HTMLLIElement> | Array<HTMLLIElement>
 
-  private domNode: Element
+  private domNode: HTMLElement
   private parent: MenuItem
   private subIndex: number
 
-  constructor(parent: MenuItem, domNode: Element) {
+  constructor(parent: MenuItem, domNode: HTMLElement) {
     this.domNode = domNode
     this.parent = parent
     this.subMenuItems = []
@@ -34,7 +34,7 @@ export default class SubMenu {
   addListeners() {
     const keys = Utils.keys
     const parentNode = this.parent.domNode
-    Array.prototype.forEach.call(this.subMenuItems, (el: Element) => {
+    Array.prototype.forEach.call(this.subMenuItems, (el: HTMLElement) => {
       el.addEventListener('keydown', event => {
         let prevDef = false
         switch (event.keyCode) {

@@ -1,7 +1,3 @@
-var aria = aria || {}
-
-aria.Utils = aria.Utils || {}
-
 /**
  * @desc Set focus on descendant nodes until the first focusable element is
  *       found.
@@ -10,10 +6,10 @@ aria.Utils = aria.Utils || {}
  * @returns
  *  true if a focusable element is found and focus is set.
  */
-aria.Utils.focusFirstDescendant = function(element) {
+export const focusFirstDescendant = function(element: HTMLElement) {
   for (var i = 0; i < element.childNodes.length; i++) {
     var child = element.childNodes[i]
-    if (aria.Utils.attemptFocus(child) || aria.Utils.focusFirstDescendant(child)) {
+    if (attemptFocus(child) || focusFirstDescendant(child)) {
       return true
     }
   }
@@ -28,10 +24,10 @@ aria.Utils.focusFirstDescendant = function(element) {
  *  true if a focusable element is found and focus is set.
  */
 
-aria.Utils.focusLastDescendant = function(element) {
+export const focusLastDescendant = function(element: HTMLElement) {
   for (var i = element.childNodes.length - 1; i >= 0; i--) {
     var child = element.childNodes[i]
-    if (aria.Utils.attemptFocus(child) || aria.Utils.focusLastDescendant(child)) {
+    if (attemptFocus(child) || focusLastDescendant(child)) {
       return true
     }
   }
@@ -40,25 +36,22 @@ aria.Utils.focusLastDescendant = function(element) {
 
 /**
  * @desc Set Attempt to set focus on the current node.
- * @param element
- *          The node to attempt to focus on.
- * @returns
- *  true if element is focused.
+ * @param element The node to attempt to focus on.
+ * @returns true if element is focused.
  */
-aria.Utils.attemptFocus = function(element) {
-  if (!aria.Utils.isFocusable(element)) {
+export function attemptFocus(element: HTMLElement) {
+  if (!isFocusable(element)) {
     return false
   }
-  aria.Utils.IgnoreUtilFocusChanges = true
+  IgnoreUtilFocusChanges = true
   try {
     element.focus()
-    /* eslint-disable-next-line */
   } catch (e) {}
-  aria.Utils.IgnoreUtilFocusChanges = false
+  IgnoreUtilFocusChanges = false
   return document.activeElement === element
 }
 
-aria.Utils.isFocusable = function(element) {
+export function isFocusable(element: HTMLElement) {
   if (element.tabIndex > 0 || (element.tabIndex === 0 && element.getAttribute('tabIndex') !== null)) {
     return true
   }
@@ -88,7 +81,7 @@ aria.Utils.isFocusable = function(element) {
  * @param  {String} name
  * @param  {*} opts
  */
-aria.Utils.triggerEvent = function(elm, name, ...opts) {
+export function triggerEvent(elm: HTMLElement, name: string, ...opts: any[]) {
   let eventName
 
   if (/^mouse|click/.test(name)) {
@@ -106,7 +99,7 @@ aria.Utils.triggerEvent = function(elm, name, ...opts) {
   return elm
 }
 
-aria.Utils.keys = {
+export const keys = {
   tab: 9,
   enter: 13,
   space: 32,
@@ -115,5 +108,3 @@ aria.Utils.keys = {
   right: 39,
   down: 40
 }
-
-export default aria.Utils

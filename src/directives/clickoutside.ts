@@ -1,7 +1,8 @@
 import { on } from '@/utils/dom'
-import Vue, { DirectiveOptions } from 'vue'
+import Vue, { DirectiveOptions, VNode } from 'vue'
+import { DirectiveBinding } from 'vue/types/options'
 
-const nodeList: Element[] = []
+const nodeList: HTMLElement[] = []
 const ctx = '@@clickoutsideContext'
 
 let startClick
@@ -14,8 +15,8 @@ let seed = 0
     nodeList.forEach(node => node[ctx].documentHandler(e, startClick))
   })
 
-function createDocumentHandler(el, binding, vnode) {
-  return function(mouseup = {}, mousedown = {}) {
+function createDocumentHandler(el: HTMLElement, binding: DirectiveBinding, vnode: VNode) {
+  return function(mouseup: Event, mousedown: Event) {
     if (
       !vnode ||
       !vnode.context ||
@@ -45,7 +46,8 @@ function createDocumentHandler(el, binding, vnode) {
  * <div v-element-clickoutside="handleClose">
  * ```
  */
-export default class clickoutside implements DirectiveOptions {
+
+const clickoutside: DirectiveOptions = {
   bind(el, binding, vnode) {
     nodeList.push(el)
     const id = seed++
@@ -56,13 +58,11 @@ export default class clickoutside implements DirectiveOptions {
       bindingFn: binding.value
     }
   },
-
   update(el, binding, vnode) {
     el[ctx].documentHandler = createDocumentHandler(el, binding, vnode)
     el[ctx].methodName = binding.expression
     el[ctx].bindingFn = binding.value
   },
-
   unbind(el) {
     let len = nodeList.length
 

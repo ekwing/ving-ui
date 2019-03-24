@@ -1,6 +1,6 @@
 import Vue from 'vue'
 
-export default function scrollIntoView(container, selected) {
+export default function scrollIntoView(container: HTMLElement, selected: HTMLElement) {
   if (Vue.prototype.$isServer) return
 
   if (!selected) {

@@ -2,10 +2,10 @@ import Utils from '../aria-utils'
 import SubMenu from './aria-submenu'
 
 export default class MenuItem {
-  domNode: Element;
+  domNode: HTMLElement;
   private submenu: SubMenu | null
 
-  constructor(domNode: Element) {
+  constructor(domNode: HTMLElement) {
     this.domNode = domNode
     this.submenu = null
     this.init()

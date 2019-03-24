@@ -11,6 +11,7 @@ import Vue from 'vue'
 export default function(instance: Vue, callback: Function, speed = 300, once = false) {
   if (!instance || !callback) throw new Error('instance & callback is required')
   let called = false
+
   const afterLeaveCallback = function() {
     if (called) return
     called = true
@@ -18,12 +19,12 @@ export default function(instance: Vue, callback: Function, speed = 300, once = f
       callback.apply(null, arguments)
     }
   }
+
   if (once) {
     instance.$once('after-leave', afterLeaveCallback)
   } else {
     instance.$on('after-leave', afterLeaveCallback)
   }
-  setTimeout(() => {
-    afterLeaveCallback()
-  }, speed + 100)
+
+  setTimeout(afterLeaveCallback, speed + 100)
 }

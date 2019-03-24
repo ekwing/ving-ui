@@ -7,7 +7,6 @@ export default function(ref: string) {
     focus() {
       const el: any = this.$refs[ref]
       el.focus && el.focus()
-      this.$slots.default
     }
   }
 

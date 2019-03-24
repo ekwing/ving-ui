@@ -74,7 +74,6 @@ export const generateId = function() {
 }
 
 export const valueEquals = (a: any, b: any) => {
-  // see: https://stackoverflow.com/questions/3115982/how-to-check-if-two-arrays-are-equal-with-javascript
   if (a === b) return true
   if (!(a instanceof Array)) return false
   if (!(b instanceof Array)) return false
@@ -87,7 +86,6 @@ export const valueEquals = (a: any, b: any) => {
 
 export const escapeRegexpString = (value = '') => String(value).replace(/[|\\{}()[\]^$+*?.]/g, '\\$&')
 
-// TODO: use native Array.find, Array.findIndex when IE support is dropped
 export const arrayFindIndex = function(arr: any[], pred: Function) {
   for (let i = 0; i !== arr.length; ++i) {
     if (pred(arr[i])) {
@@ -102,7 +100,6 @@ export const arrayFind = function(arr: any[], pred: Function) {
   return idx !== -1 ? arr[idx] : undefined
 }
 
-// coerce truthy value to array
 export const coerceTruthyValueToArray = function(val: any) {
   if (Array.isArray(val)) {
     return val
@@ -113,10 +110,6 @@ export const coerceTruthyValueToArray = function(val: any) {
   }
 }
 
-export const isIE = function() {
-  return !Vue.prototype.$isServer && !isNaN(Number(document.documentMode))
-}
+export const isIE = () => !Vue.prototype.$isServer && !isNaN(Number(document.documentMode))
 
-export const isEdge = function() {
-  return !Vue.prototype.$isServer && navigator.userAgent.indexOf('Edge') > -1
-}
+export const isEdge = () => !Vue.prototype.$isServer && navigator.userAgent.indexOf('Edge') > -1

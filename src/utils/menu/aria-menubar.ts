@@ -1,9 +1,9 @@
 import MenuItem from './aria-menuitem'
 
 export default class Menu {
-  private domNode: Element;
+  private domNode: HTMLElement;
 
-  constructor(domNode: Element) {
+  constructor(domNode: HTMLElement) {
     this.domNode = domNode
     this.init()
   }
@@ -12,9 +12,9 @@ export default class Menu {
     let menuChildren = this.domNode.childNodes
 
     ;[].filter
-      .call(menuChildren, (child: Element) => child.nodeType === 1)
-      .forEach((child: Element) => {
-        new MenuItem(child); // eslint-disable-line
+      .call(menuChildren, (child: HTMLElement) => child.nodeType === 1)
+      .forEach((child: HTMLElement) => {
+        new MenuItem(child)
       })
   }
 }

@@ -521,12 +521,12 @@
       var getScrollTopValue = function(element) {
         return element == document.body
           ? Math.max(document.documentElement.scrollTop, document.body.scrollTop)
-          : element.scrollTop
+          : HTMLElement.scrollTop
       }
       var getScrollLeftValue = function(element) {
         return element == document.body
           ? Math.max(document.documentElement.scrollLeft, document.body.scrollLeft)
-          : element.scrollLeft
+          : HTMLElement.scrollLeft
       }
 
       // if the popper is fixed we don't have to substract scrolling from the boundaries
@@ -973,7 +973,7 @@
     var styles = root.getComputedStyle(element)
     var x = parseFloat(styles.marginTop) + parseFloat(styles.marginBottom)
     var y = parseFloat(styles.marginLeft) + parseFloat(styles.marginRight)
-    var result = { width: element.offsetWidth + y, height: element.offsetHeight + x }
+    var result = { width: HTMLElement.offsetWidth + y, height: HTMLElement.offsetHeight + x }
 
     // reset element styles
     element.style.display = _display
@@ -1108,7 +1108,7 @@
     if (getStyleComputedProperty(element, 'position') === 'fixed') {
       return true
     }
-    return element.parentNode ? isFixed(element.parentNode) : element
+    return element.parentNode ? isFixed(element.parentNode) : HTMLElement
   }
 
   /**
@@ -1153,10 +1153,10 @@
    */
   function getOffsetRect(element) {
     var elementRect = {
-      width: element.offsetWidth,
-      height: element.offsetHeight,
-      left: element.offsetLeft,
-      top: element.offsetTop
+      width: HTMLElement.offsetWidth,
+      height: HTMLElement.offsetHeight,
+      left: HTMLElement.offsetLeft,
+      top: HTMLElement.offsetTop
     }
 
     elementRect.right = elementRect.left + elementRect.width
@@ -1213,12 +1213,12 @@
     }
 
     var rect = {
-      top: elementRect.top - parentRect.top,
-      left: elementRect.left - parentRect.left,
-      bottom: elementRect.top - parentRect.top + elementRect.height,
-      right: elementRect.left - parentRect.left + elementRect.width,
-      width: elementRect.width,
-      height: elementRect.height
+      top: HTMLElementRect.top - parentRect.top,
+      left: HTMLElementRect.left - parentRect.left,
+      bottom: HTMLElementRect.top - parentRect.top + elementRect.height,
+      right: HTMLElementRect.left - parentRect.left + elementRect.width,
+      width: HTMLElementRect.width,
+      height: HTMLElementRect.height
     }
     return rect
   }

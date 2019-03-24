@@ -1,6 +1,6 @@
 import Vue from 'vue'
 
-let scrollBarWidth
+let scrollBarWidth: number | undefined
 
 export default function() {
   if (Vue.prototype.$isServer) return 0
@@ -22,7 +22,7 @@ export default function() {
   outer.appendChild(inner)
 
   const widthWithScroll = inner.offsetWidth
-  outer.parentNode.removeChild(outer)
+  outer.parentNode && outer.parentNode.removeChild(outer)
   scrollBarWidth = widthNoScroll - widthWithScroll
 
   return scrollBarWidth

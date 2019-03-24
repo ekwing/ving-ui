@@ -19,13 +19,13 @@ const camelCase = function(name: string) {
 
 export const on = (function() {
   if (!isServer && document.addEventListener) {
-    return function(element: Element, event: string, handler: EventListenerOrEventListenerObject) {
+    return function(element: HTMLElement, event: string, handler: EventListenerOrEventListenerObject) {
       if (element && event && handler) {
         element.addEventListener(event, handler, false)
       }
     }
   } else {
-    return function(element: Element, event: string, handler: EventListenerOrEventListenerObject) {
+    return function(element: HTMLElement, event: string, handler: EventListenerOrEventListenerObject) {
       if (element && event && handler) {
         element.attachEvent('on' + event, handler)
       }
@@ -35,13 +35,13 @@ export const on = (function() {
 
 export const off = (function() {
   if (!isServer && document.removeEventListener) {
-    return function(element: Element, event: string, handler: EventListenerOrEventListenerObject) {
+    return function(element: HTMLElement, event: string, handler: EventListenerOrEventListenerObject) {
       if (element && event) {
         element.removeEventListener(event, handler, false)
       }
     }
   } else {
-    return function(element: Element, event: string, handler: EventListenerOrEventListenerObject) {
+    return function(element: HTMLElement, event: string, handler: EventListenerOrEventListenerObject) {
       if (element && event) {
         element.detachEvent('on' + event, handler)
       }
@@ -49,7 +49,7 @@ export const off = (function() {
   }
 })()
 
-export const once = function(el: Element, event: string, fn: Function) {
+export const once = function(el: HTMLElement, event: string, fn: Function) {
   var listener = function() {
     if (fn) {
       fn.apply(this, arguments)
@@ -59,7 +59,7 @@ export const once = function(el: Element, event: string, fn: Function) {
   on(el, event, listener)
 }
 
-export function hasClass(el, cls) {
+export function hasClass(el: HTMLElement, cls: string) {
   if (!el || !cls) return false
   if (cls.indexOf(' ') !== -1) throw new Error('className should not contain space.')
   if (el.classList) {
@@ -69,7 +69,7 @@ export function hasClass(el, cls) {
   }
 }
 
-export function addClass(el, cls) {
+export function addClass(el: HTMLElement, cls: string) {
   if (!el) return
   var curClass = el.className
   var classes = (cls || '').split(' ')
@@ -89,7 +89,7 @@ export function addClass(el, cls) {
   }
 }
 
-export function removeClass(el, cls) {
+export function removeClass(el: HTMLElement, cls: string) {
   if (!el || !cls) return
   var classes = cls.split(' ')
   var curClass = ' ' + el.className + ' '
@@ -109,50 +109,26 @@ export function removeClass(el, cls) {
   }
 }
 
-export const getStyle =
-  ieVersion < 9
-    ? function(element, styleName) {
-        if (isServer) return
-        if (!element || !styleName) return null
-        styleName = camelCase(styleName)
-        if (styleName === 'float') {
-          styleName = 'styleFloat'
-        }
-        try {
-          switch (styleName) {
-            case 'opacity':
-              try {
-                return element.filters.item('alpha').opacity / 100
-              } catch (e) {
-                return 1.0
-              }
-            default:
-              return element.style[styleName] || element.currentStyle ? element.currentStyle[styleName] : null
-          }
-        } catch (e) {
-          return element.style[styleName]
-        }
-      }
-    : function(element, styleName) {
-        if (isServer) return
-        if (!element || !styleName) return null
-        styleName = camelCase(styleName)
-        if (styleName === 'float') {
-          styleName = 'cssFloat'
-        }
-        try {
-          var computed = document.defaultView.getComputedStyle(element, '')
-          return element.style[styleName] || computed ? computed[styleName] : null
-        } catch (e) {
-          return element.style[styleName]
-        }
-      }
+export function getStyle(element: HTMLElement, styleName: string) {
+  if (isServer) return
+  if (!element || !styleName) return null
+  styleName = camelCase(styleName)
+  if (styleName === 'float') {
+    styleName = 'cssFloat'
+  }
+  try {
+    const computed = document.defaultView.getComputedStyle(element, '')
+    return element.style[styleName] || computed ? computed[styleName] : null
+  } catch (e) {
+    return element.style[styleName]
+  }
+}
 
-export function setStyle(element: Element, styleName: any, value: number) {
+export function setStyle(element: HTMLElement, styleName: any, value: number) {
   if (!element || !styleName) return
 
   if (typeof styleName === 'object') {
-    for (var prop in styleName) {
+    for (const prop in styleName) {
       if (styleName.hasOwnProperty(prop)) {
         setStyle(element, prop, styleName[prop])
       }
