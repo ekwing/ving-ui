@@ -1,11 +1,11 @@
 <template>
   <button
-    class="ek-button"
+    class="vn-button"
     :disabled="disabled"
     :autofocus="autofocus"
     :type="nativeType"
     :class="[
-      'ek-button--' + size,
+      'vn-button--' + size,
       {
         'is-disabled': disabled,
         'is-plain': plain,
@@ -19,43 +19,46 @@
     <span v-if="$slots.default"><slot></slot></span>
   </button>
 </template>
-<script>
-export default {
-  name: 'EkButton',
-  props: {
-    color: {
-      type: String,
-      required: false
-    },
-    size: {
-      type: String,
-      default: 'default',
-      validator(value) {
-        return ['default', 'medium', 'small', 'mini'].includes(value)
-      }
-    },
-    icon: {
-      type: String,
-      default: ''
-    },
-    nativeType: {
-      type: String,
-      default: 'button'
-    },
-    disabled: Boolean,
-    plain: Boolean,
-    round: Boolean,
-    circle: Boolean,
-    autofocus: Boolean
-  },
 
-  methods: {
-    handleClick(evt) {
-      this.$emit('click', evt)
-    }
+<script lang="ts">
+import { Component, Vue, Prop, Emit } from 'vue-property-decorator'
+
+@Component
+export default class VnButton extends Vue {
+  @Prop()
+  private color!: string
+
+  @Prop({ default: 'default', validator(value) { return ['default', 'medium', 'small', 'mini'].includes(value) } })
+  private size!: string
+
+  @Prop({ default: '' })
+  private icon!: string
+
+  @Prop({ default: 'button' })
+  private nativeType!: string
+
+  @Prop()
+  private disabled!: boolean
+
+  @Prop()
+  private plain!: boolean
+
+  @Prop()
+  private round!: boolean
+
+  @Prop()
+  private circle!: boolean
+
+  @Prop()
+  private autofocus!: boolean
+
+  @Emit('click')
+  handleClick(event: string) {
+    return event
   }
 }
 </script>
+
 <style lang="scss">
 @include b(button) {
   box-sizing: border-box;

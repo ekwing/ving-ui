@@ -1,7 +1,14 @@
+const fs = require('fs')
+const path = require('path')
 const Config = require('webpack-chain')
 const StyleLintPlugin = require('stylelint-webpack-plugin')
 
 const config = new Config()
+const isProd= process.env.NODE_ENV === 'production'
+
+function resolve(dir) {
+  return path.join(__dirname, '..', dir)
+}
 
 config.node
   .set('setImmediate', false)
@@ -11,6 +18,10 @@ config.node
   .set('net', 'empty')
   .set('tls', 'empty')
   .set('child_process', 'empty')
+
+config.resolve
+  .extensions
+    .merge(['.ts', '.tsx'])
 
 config.module
   .rule('vue')
@@ -43,9 +54,37 @@ config.module
   })
 
 config.module
-  .rule('compile')
+  .rule('js')
   .test(/\.js$/)
   .exclude.add(/node_modules/)
+  .end()
+  .use('babel')
+  .loader('babel-loader')
+
+config.module
+  .rule('ts')
+  .test(/\.ts$/)
+  .use('ts-loader')
+  .loader('ts-loader')
+  .options({
+    transpileOnly: true,
+    appendTsSuffixTo: ['\\.vue$'],
+    happyPackMode: isProd
+  })
+  .end()
+  .use('babel')
+  .loader('babel-loader')
+
+config.module
+  .rule('tsx')
+  .test(/\.tsx$/)
+  .use('ts-loader')
+  .loader('ts-loader')
+  .options({
+    transpileOnly: true,
+    appendTsSuffixTo: ['\\.vue$'],
+    happyPackMode: isProd
+  })
   .end()
   .use('babel')
   .loader('babel-loader')
@@ -118,6 +157,15 @@ config.module
   })
 
 config.plugin('vue-loader').use(require('vue-loader/lib/plugin'))
+
+config
+.plugin('fork-ts-checker')
+  .use(require('fork-ts-checker-webpack-plugin'), [{
+    vue: true,
+    tslint: fs.existsSync(resolve('tslint.json')),
+    formatter: 'codeframe',
+    checkSyntacticErrors: isProd
+  }])
 
 config.plugin('stylelint').use(StyleLintPlugin, [
   {
