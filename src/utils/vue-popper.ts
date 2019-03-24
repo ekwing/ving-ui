@@ -1,9 +1,9 @@
-import { PopupManager } from '@src/utils/popup'
 import Vue from 'vue'
+import { PopupManager } from '@/utils/popup'
 
 const PopperJS = Vue.prototype.$isServer ? function() {} : require('./popper')
 
-const stop = e => e.stopPropagation()
+const stop = (e: Event) => e.stopPropagation()
 
 /**
  * @param {HTMLElement} [reference=$refs.reference] - The reference element used to position the popper.
@@ -13,6 +13,8 @@ const stop = e => e.stopPropagation()
  * @param {Boolean} [visible=false] Visibility of the popup element.
  * @param {Boolean} [visible-arrow=false] Visibility of the arrow, no style.
  */
+
+
 export default {
   props: {
     transformOrigin: {

@@ -5,7 +5,7 @@
 ### 安装
 
 ```bash
-npm install @ek/ek-app-ui
+npm install @ek/ving-ui
 ```
 关于内部npm的使用参照 [这里](http://172.17.20.21:3999/web/#/6.6%20%E7%A7%81%E6%9C%89npm)。
 
@@ -15,7 +15,7 @@ npm install @ek/ek-app-ui
 
 ```javascript
 import Vue from 'vue';
-import EkAppUI from '@ek/ek-app-ui';
+import EkAppUI from '@ek/ving-ui';
 import App from './App.vue';
 
 Vue.use(EkAppUI);
@@ -47,7 +47,7 @@ npm install babel-plugin-component -D
     [
       "component",
       {
-        "libraryName": "@ek/ek-app-ui",
+        "libraryName": "@ek/ving-ui",
         "style": false
       }
     ]
@@ -59,7 +59,7 @@ npm install babel-plugin-component -D
 
 ```javascript
 import Vue from 'vue';
-import { Button } from 'element-ui';
+import { Button } from 'ving-ui';
 import App from './App.vue';
 
 Vue.component(Button.name, Button);
@@ -74,5 +74,5 @@ new Vue({
 ```
 
 :::tip
-组件的名字始终会以 `Ek` 为前缀，比如，Button组件的名字是 `EkButton`。
+组件的名字始终会以 `Vn` 为前缀，比如，Button组件的名字是 `VnButton`。
 :::

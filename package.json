@@ -25,6 +25,7 @@
     "@babel/core": "^7.3.3",
     "@commitlint/cli": "^7.2.1",
     "@commitlint/config-conventional": "^7.1.2",
+    "@types/webpack-env": "^1.13.9",
     "@vue/babel-preset-app": "^3.4.1",
     "@vue/eslint-config-prettier": "^4.0.1",
     "algoliasearch": "^3.24.5",

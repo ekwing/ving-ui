@@ -2,7 +2,7 @@
  * Show migrating guide in browser console.
  *
  * Usage:
- * import Migrating from 'element-ui/src/mixins/migrating';
+ * import Migrating from 'ving-ui/src/mixins/migrating';
  *
  * mixins: [Migrating]
  *
@@ -19,33 +19,36 @@
  *    };
  *  },
  */
-export default {
+
+import { Component, Vue } from 'vue-property-decorator'
+
+@Component
+export default class MigratingComponent extends Vue {
   mounted() {
     if (process.env.NODE_ENV === 'production') return
     if (!this.$vnode) return
-    const { props = {}, events = {} } = this.getMigratingConfig()
+    const { props, events }: { props: any, events: any } = this.getMigratingConfig()
     const { data, componentOptions } = this.$vnode
-    const definedProps = data.attrs || {}
-    const definedEvents = componentOptions.listeners || {}
+    const definedProps = data && data.attrs || {}
+    const definedEvents = componentOptions && componentOptions.listeners || {}
 
-    for (let propName in definedProps) {
+    for (const propName in definedProps) {
       if (definedProps.hasOwnProperty(propName) && props[propName]) {
         console.warn(`[Element Migrating][${this.$options.name}][Attribute]: ${props[propName]}`)
       }
     }
 
-    for (let eventName in definedEvents) {
+    for (const eventName in definedEvents) {
       if (definedEvents.hasOwnProperty(eventName) && events[eventName]) {
         console.warn(`[Element Migrating][${this.$options.name}][Event]: ${events[eventName]}`)
       }
     }
-  },
-  methods: {
-    getMigratingConfig() {
-      return {
-        props: {},
-        events: {}
-      }
+  }
+
+  getMigratingConfig() {
+    return {
+      props: {},
+      events: {}
     }
   }
 }

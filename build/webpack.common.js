@@ -2,13 +2,10 @@ const fs = require('fs')
 const path = require('path')
 const Config = require('webpack-chain')
 const StyleLintPlugin = require('stylelint-webpack-plugin')
+const { resolve } = require('./utils')
 
 const config = new Config()
 const isProd= process.env.NODE_ENV === 'production'
-
-function resolve(dir) {
-  return path.join(__dirname, '..', dir)
-}
 
 config.node
   .set('setImmediate', false)

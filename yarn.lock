@@ -875,6 +875,11 @@
     "@types/unist" "*"
     "@types/vfile-message" "*"
 
+"@types/webpack-env@^1.13.9":
+  version "1.13.9"
+  resolved "https://registry.npmjs.org/@types/webpack-env/-/webpack-env-1.13.9.tgz#a67287861c928ebf4159a908d1fb1a2a34d4097a"
+  integrity sha512-p8zp5xqkly3g4cCmo2mKOHI9+Z/kObmDj0BmjbDDJQlgDTiEGTbm17MEwTAusV6XceCy+bNw9q/ZHXHyKo3zkg==
+
 "@vue/babel-helper-vue-jsx-merge-props@^1.0.0-beta.3":
   version "1.0.0-beta.3"
   resolved "https://registry.npmjs.org/@vue/babel-helper-vue-jsx-merge-props/-/babel-helper-vue-jsx-merge-props-1.0.0-beta.3.tgz#e4c2e7125b3e0d2a9d493e457850b2abb0fd3cad"

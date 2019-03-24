@@ -4,18 +4,18 @@ const hasOwnProperty = Object.prototype.hasOwnProperty
 
 export function noop() {}
 
-export function hasOwn(obj, key) {
+export function hasOwn(obj: any, key: string) {
   return hasOwnProperty.call(obj, key)
 }
 
-function extend(to, _from) {
+function extend(to: any, _from: any) {
   for (let key in _from) {
     to[key] = _from[key]
   }
   return to
 }
 
-export function toObject(arr) {
+export function toObject(arr: any[]) {
   var res = {}
   for (let i = 0; i < arr.length; i++) {
     if (arr[i]) {
@@ -25,7 +25,7 @@ export function toObject(arr) {
   return res
 }
 
-export const getValueByPath = function(object, prop) {
+export const getValueByPath = function(object: any, prop: string) {
   prop = prop || ''
   const paths = prop.split('.')
   let current = object
@@ -43,7 +43,7 @@ export const getValueByPath = function(object, prop) {
   return result
 }
 
-export function getPropByPath(obj, path, strict) {
+export function getPropByPath(obj: any, path: any, strict: boolean) {
   let tempObj = obj
   path = path.replace(/\[(\w+)\]/g, '.$1')
   path = path.replace(/^\./, '')
@@ -73,7 +73,7 @@ export const generateId = function() {
   return Math.floor(Math.random() * 10000)
 }
 
-export const valueEquals = (a, b) => {
+export const valueEquals = (a: any, b: any) => {
   // see: https://stackoverflow.com/questions/3115982/how-to-check-if-two-arrays-are-equal-with-javascript
   if (a === b) return true
   if (!(a instanceof Array)) return false
@@ -88,7 +88,7 @@ export const valueEquals = (a, b) => {
 export const escapeRegexpString = (value = '') => String(value).replace(/[|\\{}()[\]^$+*?.]/g, '\\$&')
 
 // TODO: use native Array.find, Array.findIndex when IE support is dropped
-export const arrayFindIndex = function(arr, pred) {
+export const arrayFindIndex = function(arr: any[], pred: Function) {
   for (let i = 0; i !== arr.length; ++i) {
     if (pred(arr[i])) {
       return i
@@ -97,13 +97,13 @@ export const arrayFindIndex = function(arr, pred) {
   return -1
 }
 
-export const arrayFind = function(arr, pred) {
+export const arrayFind = function(arr: any[], pred: Function) {
   const idx = arrayFindIndex(arr, pred)
   return idx !== -1 ? arr[idx] : undefined
 }
 
 // coerce truthy value to array
-export const coerceTruthyValueToArray = function(val) {
+export const coerceTruthyValueToArray = function(val: any) {
   if (Array.isArray(val)) {
     return val
   } else if (val) {

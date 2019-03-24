@@ -4,11 +4,8 @@ const TerserPlugin = require('terser-webpack-plugin')
 const Config = require('webpack-chain')
 const merge = require('webpack-merge')
 const commonWebpackConfig = require('./webpack.common.js')
+const { resolve } = require('./utils')
 const striptags = require('./strip-tags.js')
-
-function resolve(dir) {
-  return path.join(__dirname, '..', dir)
-}
 
 function wrap(render) {
   return function() {
@@ -42,9 +39,9 @@ config
   .add('.vue')
   .add('.json')
   .end()
-  .alias.set('@src', resolve('src'))
-  .set('@packages', resolve('packages'))
-  .set('ek-app-ui', resolve('.'))
+  .alias.set('@', resolve('src'))
+  .set('packages', resolve('packages'))
+  .set('ving-ui', resolve('.'))
 
 config.module
   .rule('scss')
@@ -60,8 +57,8 @@ config.module
   .options({
     implementation: require('sass'),
     data: `
-          @import "@packages/theme/src/common/var.scss";
-          @import "@packages/theme/src/mixins/mixins.scss";
+          @import "packages/theme/src/common/var.scss";
+          @import "packages/theme/src/mixins/mixins.scss";
         `
   })
 

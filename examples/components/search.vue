@@ -123,7 +123,7 @@ export default {
   methods: {
     initIndex() {
       const client = algoliasearch('H0RWPZISHQ', 'ff617dd73a8ee4dc830b4d6441408895')
-      this.index = client.initIndex('ek-app-ui')
+      this.index = client.initIndex('ving-ui')
     },
 
     querySearch(query, cb) {

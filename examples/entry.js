@@ -1,7 +1,7 @@
-import '@src/utils/flexible.js'
-import 'ek-app-ui/packages/theme/index.scss'
+import '@/utils/flexible.js'
+import 'packages/theme/index.scss'
 
-import EkUI from '@src/index.js'
+import EkUI from '@/index.js'
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 

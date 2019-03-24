@@ -1,7 +1,7 @@
-import { on } from '@src/utils/dom'
-import Vue from 'vue'
+import { on } from '@/utils/dom'
+import Vue, { DirectiveOptions } from 'vue'
 
-const nodeList = []
+const nodeList: Element[] = []
 const ctx = '@@clickoutsideContext'
 
 let startClick
@@ -45,7 +45,7 @@ function createDocumentHandler(el, binding, vnode) {
  * <div v-element-clickoutside="handleClose">
  * ```
  */
-export default {
+export default class clickoutside implements DirectiveOptions {
   bind(el, binding, vnode) {
     nodeList.push(el)
     const id = seed++

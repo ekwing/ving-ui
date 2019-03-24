@@ -1,4 +1,4 @@
-import { VueConstructor } from 'vue/types'
+import { VueConstructor } from 'vue'
 import VnButton from './src/button.vue'
 
 VnButton.install = function(Vue: VueConstructor) {

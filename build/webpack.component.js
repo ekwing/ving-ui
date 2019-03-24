@@ -2,29 +2,26 @@ const fs = require('fs')
 const path = require('path')
 const Config = require('webpack-chain')
 const merge = require('webpack-merge')
+const { resolve } = require('./utils')
 const commonWebpackConfig = require('./webpack.common.js')
 const components = require('../components.json')
 
 const config = new Config()
-
-function resolve(dir) {
-  return path.join(__dirname, '..', dir)
-}
 
 const externals = {}
 const utilsList = fs.readdirSync(resolve('src/utils'))
 const mixinsList = fs.readdirSync(resolve('src/mixins'))
 
 Object.keys(components).forEach(function(key) {
-  externals[`ek-app-ui/packages/${key}`] = `ek-app-ui/lib/${key}`
+  externals[`ving-ui/packages/${key}`] = `ving-ui/lib/${key}`
 })
 
 utilsList.forEach(function(fileName) {
-  externals[`ek-app-ui/src/utils/${fileName}.js`] = `ek-app-ui/lib/utils/${fileName}.js`
+  externals[`ving-ui/src/utils/${fileName}.js`] = `ving-ui/lib/utils/${fileName}.js`
 })
 
 mixinsList.forEach(function(fileName) {
-  externals[`ek-app-ui/src/mixins/${fileName}.js`] = `ek-app-ui/lib/mixins/${fileName}.js`
+  externals[`ving-ui/src/mixins/${fileName}.js`] = `ving-ui/lib/mixins/${fileName}.js`
 })
 
 externals.vue = {
@@ -47,9 +44,9 @@ config
   .add('.vue')
   .add('.json')
   .end()
-  .alias.set('@src', resolve('src'))
-  .set('@packages', resolve('packages'))
-  .set('ek-app-ui', resolve('.'))
+  .alias.set('@', resolve('src'))
+  .set('packages', resolve('packages'))
+  .set('ving-ui', resolve('.'))
 
 config.module
   .rule('scss')
@@ -65,8 +62,8 @@ config.module
   .options({
     implementation: require('sass'),
     data: `
-          @import "@packages/theme/src/common/var.scss";
-          @import "@packages/theme/src/mixins/mixins.scss";
+          @import "packages/theme/src/common/var.scss";
+          @import "packages/theme/src/mixins/mixins.scss";
         `
   })
 
