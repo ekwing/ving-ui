@@ -109,7 +109,3 @@ export const coerceTruthyValueToArray = function(val: any) {
     return []
   }
 }
-
-export const isIE = () => !Vue.prototype.$isServer && !isNaN(Number(document.documentMode))
-
-export const isEdge = () => !Vue.prototype.$isServer && navigator.userAgent.indexOf('Edge') > -1

@@ -2,8 +2,8 @@ import { Component, Vue, Prop, Watch } from 'vue-property-decorator'
 import merge from '@/utils/merge'
 import PopupManager from '@/utils/popup/popup-manager'
 
-import { addClass, getStyle, hasClass, removeClass } from '../dom'
-import getScrollBarWidth from '../scrollbar-width'
+import { addClass, getStyle, hasClass, removeClass } from '@/utils/dom'
+import getScrollBarWidth from '@/utils/scrollbar-width'
 
 let idSeed = 1
 
@@ -113,7 +113,7 @@ export default class PopupComponent extends Vue {
 
     this._opening = true
 
-    const dom = this.$el
+    const dom: HTMLElement = this.$el
 
     const modal = props.modal
 

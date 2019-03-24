@@ -1,7 +1,7 @@
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator'
 import { PopupManager } from '@/utils/popup'
 
-const PopperJS = Vue.prototype.$isServer ? function() {} : require('./popper')
+const PopperJS = Vue.prototype.$isServer ? function() {} : require('popper.js')
 
 const stop = (e: Event) => e.stopPropagation()
 

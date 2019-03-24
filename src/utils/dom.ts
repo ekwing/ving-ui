@@ -3,7 +3,6 @@ import Vue from 'vue'
 const isServer = Vue.prototype.$isServer
 const SPECIAL_CHARS_REGEXP = /([\:\-\_]+(.))/g
 const MOZ_HACK_REGEXP = /^moz([A-Z])/
-const ieVersion = isServer ? 0 : Number(document.documentMode)
 
 const trim = function(string: string) {
   return (string || '').replace(/^[\s\uFEFF]+|[\s\uFEFF]+$/g, '')
@@ -17,37 +16,17 @@ const camelCase = function(name: string) {
     .replace(MOZ_HACK_REGEXP, 'Moz$1')
 }
 
-export const on = (function() {
-  if (!isServer && document.addEventListener) {
-    return function(element: HTMLElement, event: string, handler: EventListenerOrEventListenerObject) {
-      if (element && event && handler) {
-        element.addEventListener(event, handler, false)
-      }
-    }
-  } else {
-    return function(element: HTMLElement, event: string, handler: EventListenerOrEventListenerObject) {
-      if (element && event && handler) {
-        element.attachEvent('on' + event, handler)
-      }
-    }
+export const on = isServer ? () => {} : function(element: HTMLElement, event: string, handler: EventListenerOrEventListenerObject) {
+  if (element && event && handler) {
+    element.addEventListener(event, handler, false)
   }
-})()
+}
 
-export const off = (function() {
-  if (!isServer && document.removeEventListener) {
-    return function(element: HTMLElement, event: string, handler: EventListenerOrEventListenerObject) {
-      if (element && event) {
-        element.removeEventListener(event, handler, false)
-      }
-    }
-  } else {
-    return function(element: HTMLElement, event: string, handler: EventListenerOrEventListenerObject) {
-      if (element && event) {
-        element.detachEvent('on' + event, handler)
-      }
-    }
+export const off = isServer ? () => {} : function(element: HTMLElement, event: string, handler: EventListenerOrEventListenerObject) {
+  if (element && event) {
+    element.removeEventListener(event, handler, false)
   }
-})()
+}
 
 export const once = function(el: HTMLElement, event: string, fn: Function) {
   var listener = function() {
@@ -135,10 +114,6 @@ export function setStyle(element: HTMLElement, styleName: any, value: number) {
     }
   } else {
     styleName = camelCase(styleName)
-    if (styleName === 'opacity' && ieVersion < 9) {
-      element.style.filter = isNaN(value) ? '' : 'alpha(opacity=' + value * 100 + ')'
-    } else {
-      element.style[styleName] = value
-    }
+    element.style[styleName] = value
   }
 }
