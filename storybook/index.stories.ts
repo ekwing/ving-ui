@@ -3,7 +3,7 @@ import { linkTo } from '@storybook/addon-links'
 import { withKnobs, text, boolean } from '@storybook/addon-knobs'
 import VnButton from 'packages/button/src/button.vue'
 
-storiesOf('Button', module)
+storiesOf('Button 按钮', module)
   .addDecorator(withKnobs)
   .add('with text', () => ({
     components: { VnButton },
@@ -17,9 +17,4 @@ storiesOf('Button', module)
     },
     template: `<VnButton :disabled="disabled">{{ text }}</VnButton>`,
     methods: { action: linkTo('Button') }
-  }),
-  {
-    info: {
-      summary: 'test'
-    }
-  })
+  }))
