@@ -11,7 +11,7 @@ const config = new Config()
 const externals = {}
 const utilsList = fs.readdirSync(resolve('src/utils'))
 const mixinsList = fs.readdirSync(resolve('src/mixins'))
-console.log(JSON.stringify(commonWebpackConfig.module.rules))
+
 Object.keys(components).forEach(function(key) {
   externals[`ving-ui/packages/${key}`] = `ving-ui/lib/${key}`
 })

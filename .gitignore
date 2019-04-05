@@ -13,6 +13,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# Cache files
+.cache/
+
 # Editor directories and files
 .idea
 .vscode

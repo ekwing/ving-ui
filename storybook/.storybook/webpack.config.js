@@ -18,23 +18,15 @@ module.exports = async ({ config, mode }) => {
     .set('packages', resolve('packages'))
 
   configChain.module
-    .rule('ts')
-    .test(/\.ts$/)
-    .use('babel')
-      .loader('babel-loader')
-      .end()
-    .use('ts-loader')
-      .loader('ts-loader')
-      .options({
-        transpileOnly: true,
-        appendTsSuffixTo: ['\\.vue$']
-      })
-      .end()
-
+    .rule('vue')
+    .test(/\.vue$/)
+    .post()
+    .use('vue-info')
+      .loader('storybook-addon-vue-info/loader')
 
   configChain.module
-    .rule('tsx')
-    .test(/\.tsx$/)
+    .rule('ts')
+    .test(/\.tsx?$/)
     .use('babel')
       .loader('babel-loader')
       .end()
@@ -66,13 +58,13 @@ module.exports = async ({ config, mode }) => {
         `
     })
 
-  configChain
-    .plugin('fork-ts-checker')
-      .use(require('fork-ts-checker-webpack-plugin'), [{
-        vue: true,
-        tslint: fs.existsSync(resolve('tslint.json')),
-        formatter: 'codeframe'
-      }])
+  // configChain
+  //   .plugin('fork-ts-checker')
+  //     .use(require('fork-ts-checker-webpack-plugin'), [{
+  //       vue: true,
+  //       tslint: fs.existsSync(resolve('tslint.json')),
+  //       formatter: 'codeframe'
+  //     }])
 
   return merge(config, configChain.toConfig())
 }

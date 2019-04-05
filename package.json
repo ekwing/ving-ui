@@ -8,9 +8,9 @@
     "lib"
   ],
   "scripts": {
-    "dev": "start-storybook -c ./storybook/.storybook",
+    "dev": "start-storybook -s ./storybook/public -c ./storybook/.storybook",
     "build": "rimraf lib && webpack --config build/webpack.component.js",
-    "build:doc": "rimraf docs && build-storybook -c ./storybook/.storybook -o docs",
+    "build:doc": "rimraf docs && build-storybook -s ./storybook/public -c ./storybook/.storybook -o docs",
     "lint": "eslint src/**/* packages/**/* examples/**/*.js examples/**/*.vue build/**/*.js --fix",
     "lint:style": "stylelint **/*.{html,vue,css,sass,scss} --fix"
   },
@@ -29,11 +29,13 @@
     "@commitlint/cli": "^7.2.1",
     "@commitlint/config-conventional": "^7.1.2",
     "@storybook/addon-actions": "^5.0.6",
+    "@storybook/addon-knobs": "^5.0.6",
     "@storybook/addon-links": "^5.0.6",
     "@storybook/addons": "^5.0.6",
     "@storybook/vue": "^5.0.6",
     "@types/popper.js": "^1.11.0",
     "@types/storybook__addon-actions": "^3.4.2",
+    "@types/storybook__addon-knobs": "^4.0.5",
     "@types/storybook__addon-links": "^3.3.4",
     "@types/storybook__vue": "^5.0.1",
     "@types/webpack-env": "^1.13.9",
@@ -64,6 +66,7 @@
     "rimraf": "^2.6.3",
     "sass": "^1.17.3",
     "sass-loader": "^7.1.0",
+    "storybook-addon-vue-info": "^1.0.1",
     "style-loader": "^0.23.1",
     "stylelint": "^9.10.1",
     "stylelint-config-ekwing": "^0.1.0",

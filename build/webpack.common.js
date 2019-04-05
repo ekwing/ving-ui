@@ -5,7 +5,7 @@ const StyleLintPlugin = require('stylelint-webpack-plugin')
 const { resolve } = require('./utils')
 
 const config = new Config()
-const isProd= process.env.NODE_ENV === 'production'
+const isProd = process.env.NODE_ENV === 'production'
 
 config.node
   .set('setImmediate', false)
@@ -17,11 +17,7 @@ config.node
   .set('child_process', 'empty')
 
 config.resolve.extensions
-  .add('.js')
-  .add('.ts')
-  .add('.vue')
-  .add('.json')
-  .add('.tsx')
+  .merge(['.js', '.ts', '.tsx', '.vue', '.json'])
 
 config.module
   .rule('vue')
@@ -53,26 +49,9 @@ config.module
     }
   })
 
-
-
 config.module
   .rule('ts')
-  .test(/\.ts$/)
-  .use('babel')
-    .loader('babel-loader')
-    .end()
-  .use('ts-loader')
-    .loader('ts-loader')
-    .options({
-      transpileOnly: true,
-      appendTsSuffixTo: ['\\.vue$'],
-      happyPackMode: isProd
-    })
-    .end()
-
-config.module
-  .rule('tsx')
-  .test(/\.tsx$/)
+  .test(/\.tsx?$/)
   .use('babel')
     .loader('babel-loader')
     .end()
