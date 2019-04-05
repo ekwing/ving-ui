@@ -16,6 +16,7 @@ module.exports = async ({ config, mode }) => {
   configChain.resolve.alias
     .set('@', resolve('src'))
     .set('packages', resolve('packages'))
+    .set('storybook', resolve('storybook'))
 
   configChain.module
     .rule('vue')

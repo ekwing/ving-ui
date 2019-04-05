@@ -17,6 +17,7 @@
     "paths": {
       "@/*": [ "src/*" ],
       "packages/*": [ "packages/*" ],
+      "storybook/*": [ "storybook/*" ],
       "ving-ui/*": [ "./*" ]
     },
     "lib": [

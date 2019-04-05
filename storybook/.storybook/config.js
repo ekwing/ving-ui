@@ -3,11 +3,10 @@ import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport'
 import { withInfo } from 'storybook-addon-vue-info'
 import theme from './theme'
 
-const context = require.context('..', true, /\.stories\.ts$/)
-
 addDecorator(withInfo)
 addParameters({
   options: {
+    showPanel: true,
     panelPosition: 'right',
     theme
   },
@@ -21,7 +20,8 @@ addParameters({
 })
 
 function loadStories() {
-  context.keys().forEach(filename => context(filename))
+  const context = require.context('..', true, /\.stories\.ts$/)
+  context.keys().forEach(context)
 }
 
 configure(loadStories, module)
