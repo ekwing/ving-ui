@@ -16,9 +16,12 @@ config.node
   .set('tls', 'empty')
   .set('child_process', 'empty')
 
-config.resolve
-  .extensions
-    .merge(['.ts', '.tsx'])
+config.resolve.extensions
+  .add('.js')
+  .add('.ts')
+  .add('.vue')
+  .add('.json')
+  .add('.tsx')
 
 config.module
   .rule('vue')
@@ -34,7 +37,7 @@ config.module
 config.module
   .rule('eslint')
   .pre()
-  .test(/\.(vue|(j|t)sx?)$/)
+  .test(/\.(vue|jsx?)$/)
   .exclude.add(/node_modules/)
   .end()
   .use('eslint-loader')
@@ -50,38 +53,42 @@ config.module
     }
   })
 
-config.module
-  .rule('js')
-  .test(/\.js$/)
-  .exclude.add(/node_modules/)
-  .end()
-  .use('babel')
-  .loader('babel-loader')
+
 
 config.module
   .rule('ts')
   .test(/\.ts$/)
-  .use('ts-loader')
-  .loader('ts-loader')
-  .options({
-    transpileOnly: true,
-    appendTsSuffixTo: ['\\.vue$'],
-    happyPackMode: isProd
-  })
-  .end()
   .use('babel')
-  .loader('babel-loader')
+    .loader('babel-loader')
+    .end()
+  .use('ts-loader')
+    .loader('ts-loader')
+    .options({
+      transpileOnly: true,
+      appendTsSuffixTo: ['\\.vue$'],
+      happyPackMode: isProd
+    })
+    .end()
 
 config.module
   .rule('tsx')
   .test(/\.tsx$/)
+  .use('babel')
+    .loader('babel-loader')
+    .end()
   .use('ts-loader')
-  .loader('ts-loader')
-  .options({
-    transpileOnly: true,
-    appendTsSuffixTo: ['\\.vue$'],
-    happyPackMode: isProd
-  })
+    .loader('ts-loader')
+    .options({
+      transpileOnly: true,
+      appendTsSuffixTo: ['\\.vue$'],
+      happyPackMode: isProd
+    })
+    .end()
+
+config.module
+  .rule('js')
+  .test(/\.js$/)
+  .exclude.add(/node_modules/)
   .end()
   .use('babel')
   .loader('babel-loader')

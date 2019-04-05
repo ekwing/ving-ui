@@ -8,7 +8,6 @@ const resolve = function(dir) {
 }
 
 module.exports = async ({ config, mode }) => {
-  console.log(JSON.stringify(config.module))
   const configChain = new Config()
 
   configChain.resolve.extensions
@@ -21,28 +20,32 @@ module.exports = async ({ config, mode }) => {
   configChain.module
     .rule('ts')
     .test(/\.ts$/)
-    .use('ts-loader')
-    .loader('ts-loader')
-    .options({
-      transpileOnly: true,
-      appendTsSuffixTo: ['\\.vue$']
-    })
-    .end()
     .use('babel')
-    .loader('babel-loader')
+      .loader('babel-loader')
+      .end()
+    .use('ts-loader')
+      .loader('ts-loader')
+      .options({
+        transpileOnly: true,
+        appendTsSuffixTo: ['\\.vue$']
+      })
+      .end()
+
 
   configChain.module
     .rule('tsx')
     .test(/\.tsx$/)
-    .use('ts-loader')
-    .loader('ts-loader')
-    .options({
-      transpileOnly: true,
-      appendTsSuffixTo: ['\\.vue$']
-    })
-    .end()
     .use('babel')
-    .loader('babel-loader')
+      .loader('babel-loader')
+      .end()
+    .use('ts-loader')
+      .loader('ts-loader')
+      .options({
+        transpileOnly: true,
+        appendTsSuffixTo: ['\\.vue$']
+      })
+      .end()
+
 
   configChain.module
     .rule('scss')
@@ -63,13 +66,13 @@ module.exports = async ({ config, mode }) => {
         `
     })
 
-  // configChain
-  //   .plugin('fork-ts-checker')
-  //     .use(require('fork-ts-checker-webpack-plugin'), [{
-  //       vue: true,
-  //       tslint: fs.existsSync(resolve('tslint.json')),
-  //       formatter: 'codeframe'
-  //     }])
+  configChain
+    .plugin('fork-ts-checker')
+      .use(require('fork-ts-checker-webpack-plugin'), [{
+        vue: true,
+        tslint: fs.existsSync(resolve('tslint.json')),
+        formatter: 'codeframe'
+      }])
 
   return merge(config, configChain.toConfig())
 }

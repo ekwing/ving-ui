@@ -11,7 +11,7 @@ const config = new Config()
 const externals = {}
 const utilsList = fs.readdirSync(resolve('src/utils'))
 const mixinsList = fs.readdirSync(resolve('src/mixins'))
-
+console.log(JSON.stringify(commonWebpackConfig.module.rules))
 Object.keys(components).forEach(function(key) {
   externals[`ving-ui/packages/${key}`] = `ving-ui/lib/${key}`
 })
@@ -34,17 +34,16 @@ externals.vue = {
 config
   .mode('production')
   .entry('index')
-  .add('./src/index.js')
-  .end()
+    .add('./src/index.ts')
+    .end()
   .output.path(resolve('lib'))
-  .filename('[name].js')
-  .end()
+    .filename('[name].js')
+    .end()
   .externals(externals)
-  .resolve.extensions.add('.js')
-  .add('.vue')
-  .add('.json')
-  .end()
-  .alias.set('@', resolve('src'))
+    .end()
+
+config.resolve.alias
+  .set('@', resolve('src'))
   .set('packages', resolve('packages'))
   .set('ving-ui', resolve('.'))
 
@@ -62,9 +61,9 @@ config.module
   .options({
     implementation: require('sass'),
     data: `
-          @import "packages/theme/src/common/var.scss";
-          @import "packages/theme/src/mixins/mixins.scss";
-        `
+      @import "packages/theme/src/common/var.scss";
+      @import "packages/theme/src/mixins/mixins.scss";
+    `
   })
 
 const webpackConfig = merge(commonWebpackConfig, config.toConfig())

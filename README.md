@@ -4,3 +4,7 @@
 ```
 yarn add ving-ui
 ```
+
+## Features
+- typescript
+- storybook

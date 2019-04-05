@@ -6,8 +6,8 @@
     "jsx": "preserve",
     "importHelpers": true,
     "moduleResolution": "node",
-    "esModuleInterop": true,
     "experimentalDecorators": true,
+    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "baseUrl": ".",
@@ -17,7 +17,6 @@
     "paths": {
       "@/*": [ "src/*" ],
       "packages/*": [ "packages/*" ],
-      "examples/*": [ "examples/*" ],
       "ving-ui/*": [ "./*" ]
     },
     "lib": [
@@ -34,9 +33,9 @@
     "packages/**/*.ts",
     "packages/**/*.tsx",
     "packages/**/*.vue",
-    "examples/**/*.ts",
-    "examples/**/*.tsx",
-    "examples/**/*.vue"
+    "storybook/**/*.ts",
+    "storybook/**/*.tsx",
+    "storybook/**/*.vue"
   ],
   "exclude": [
     "node_modules"
