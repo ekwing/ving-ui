@@ -1,4 +1,3 @@
-import { linkTo } from '@storybook/addon-links'
 import { text, boolean } from '@storybook/addon-knobs'
 import VnButton from 'packages/button/src/button.vue'
 import { Story } from '@storybook/vue'

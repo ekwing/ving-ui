@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "dev": "start-storybook -s ./storybook/public -c ./storybook/.storybook",
-    "build": "rimraf lib && webpack --config build/webpack.component.js",
+    "build": "rimraf lib && webpack --config build/webpack.conf.js",
     "build:doc": "rimraf docs && build-storybook -s ./storybook/public -c ./storybook/.storybook -o docs",
     "lint": "eslint src/**/* packages/**/* examples/**/*.js examples/**/*.vue build/**/*.js --fix",
     "lint:style": "stylelint **/*.{html,vue,css,sass,scss} --fix"
@@ -41,7 +41,6 @@
     "@types/storybook__vue": "^5.0.1",
     "@types/webpack-env": "^1.13.9",
     "@vue/babel-preset-app": "^3.4.1",
-    "@vue/eslint-config-prettier": "^4.0.1",
     "algoliasearch": "^3.24.5",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.5",
@@ -91,12 +90,12 @@
     "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
   },
   "lint-staged": {
-    "*.js": [
-      "vue-cli-service lint",
+    "*.{js,vue}": [
+      "eslint --fix",
       "git add"
     ],
-    "*.vue": [
-      "vue-cli-service lint",
+    "*.ts": [
+      "tslint --fix",
       "git add"
     ],
     "*.{html,vue,css,sass,scss}": [

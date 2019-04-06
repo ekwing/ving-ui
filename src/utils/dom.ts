@@ -103,14 +103,14 @@ export function getStyle(element: HTMLElement, styleName: keyof CSSStyleDeclarat
   }
 }
 
-export function setStyle(element: HTMLElement, styleName: CSSStyleDeclaration | keyof CSSStyleDeclaration, value: number) {
+export function setStyle(element: HTMLElement, styleName: CSSStyleDeclaration | keyof CSSStyleDeclaration, value: number | string) {
   if (!element || !styleName) return
 
   if (typeof styleName === 'object') {
     
     for (const prop in styleName) {
       if (styleName.hasOwnProperty(prop)) {
-        setStyle(element, prop, styleName[prop])
+        setStyle(element, <keyof CSSStyleDeclaration>prop, styleName[prop])
       }
     }
   } else {
