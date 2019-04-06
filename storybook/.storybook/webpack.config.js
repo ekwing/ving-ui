@@ -39,25 +39,45 @@ module.exports = async ({ config, mode }) => {
       })
       .end()
 
+configChain.module
+  .rule('css')
+  .test(/\.css$/)
+  .use('mini-css-extract')
+    .loader(require('mini-css-extract-plugin').loader)
+    .end()
+  .use('css-loader')
+    .loader('css-loader')
+    .end()
+  .use('style-loader')
+    .loader('style-loader')
+    .end()
+  .use('postcss-loader')
+    .loader('postcss-loader')
 
   configChain.module
     .rule('scss')
     .test(/\.scss$/)
     .use('vue-style-loader')
-    .loader('vue-style-loader')
-    .end()
+      .loader('vue-style-loader')
+      .end()
+    .use('mini-css-extract')
+      .loader(require('mini-css-extract-plugin').loader)
+      .end()
     .use('css-loader')
-    .loader('css-loader')
-    .end()
+      .loader('css-loader')
+      .end()
+    .use('postcss-loader')
+      .loader('postcss-loader')
+      .end()
     .use('sass-loader')
-    .loader('sass-loader')
-    .options({
-      implementation: require('sass'),
-      data: `
-          @import "packages/theme/src/common/var.scss";
-          @import "packages/theme/src/mixins/mixins.scss";
-        `
-    })
+      .loader('sass-loader')
+      .options({
+        implementation: require('sass'),
+        data: `
+            @import "packages/theme/src/common/var.scss";
+            @import "packages/theme/src/mixins/mixins.scss";
+          `
+      })
 
   // configChain
   //   .plugin('fork-ts-checker')
@@ -66,6 +86,21 @@ module.exports = async ({ config, mode }) => {
   //       tslint: fs.existsSync(resolve('tslint.json')),
   //       formatter: 'codeframe'
   //     }])
+
+  configChain.plugin('mini-css-extract')
+    .use(require('mini-css-extract-plugin'), [
+      {
+        filename: 'css/[name].[chunkhash].css',
+        chunkFilename: 'css/[id].[chunkhash].css'
+      }
+    ])
+
+  configChain.plugin('optimize-css-assets')
+    .use(require('optimize-css-assets-webpack-plugin'), [
+      {
+        cssProcessorOptions: { safe: true }
+      }
+    ])
 
   return merge(config, configChain.toConfig())
 }
