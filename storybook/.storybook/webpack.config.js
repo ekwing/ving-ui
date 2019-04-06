@@ -79,13 +79,13 @@ configChain.module
           `
       })
 
-  // configChain
-  //   .plugin('fork-ts-checker')
-  //     .use(require('fork-ts-checker-webpack-plugin'), [{
-  //       vue: true,
-  //       tslint: fs.existsSync(resolve('tslint.json')),
-  //       formatter: 'codeframe'
-  //     }])
+  configChain
+    .plugin('fork-ts-checker')
+      .use(require('fork-ts-checker-webpack-plugin'), [{
+        vue: true,
+        tslint: fs.existsSync(resolve('tslint.json')),
+        formatter: 'codeframe'
+      }])
 
   configChain.plugin('mini-css-extract')
     .use(require('mini-css-extract-plugin'), [

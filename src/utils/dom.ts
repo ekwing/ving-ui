@@ -16,13 +16,13 @@ const camelCase = function(name: string) {
     .replace(MOZ_HACK_REGEXP, 'Moz$1')
 }
 
-export const on = isServer ? () => {} : function(element: HTMLElement, event: string, handler: EventListenerOrEventListenerObject) {
+export const on = isServer ? () => {} : function(element: HTMLElement | Document, event: string, handler: EventListenerOrEventListenerObject) {
   if (element && event && handler) {
     element.addEventListener(event, handler, false)
   }
 }
 
-export const off = isServer ? () => {} : function(element: HTMLElement, event: string, handler: EventListenerOrEventListenerObject) {
+export const off = isServer ? () => {} : function(element: HTMLElement | Document, event: string, handler: EventListenerOrEventListenerObject) {
   if (element && event) {
     element.removeEventListener(event, handler, false)
   }
@@ -88,32 +88,34 @@ export function removeClass(el: HTMLElement, cls: string) {
   }
 }
 
-export function getStyle(element: HTMLElement, styleName: string) {
+export function getStyle(element: HTMLElement, styleName: keyof CSSStyleDeclaration) {
   if (isServer) return
   if (!element || !styleName) return null
-  styleName = camelCase(styleName)
+  styleName = <keyof CSSStyleDeclaration>camelCase(String(styleName))
   if (styleName === 'float') {
     styleName = 'cssFloat'
   }
   try {
-    const computed = document.defaultView.getComputedStyle(element, '')
+    const computed = (document.defaultView || window).getComputedStyle(element, '')
     return element.style[styleName] || computed ? computed[styleName] : null
   } catch (e) {
     return element.style[styleName]
   }
 }
 
-export function setStyle(element: HTMLElement, styleName: any, value: number) {
+export function setStyle(element: HTMLElement, styleName: CSSStyleDeclaration | keyof CSSStyleDeclaration, value: number) {
   if (!element || !styleName) return
 
   if (typeof styleName === 'object') {
+    
     for (const prop in styleName) {
       if (styleName.hasOwnProperty(prop)) {
         setStyle(element, prop, styleName[prop])
       }
     }
   } else {
-    styleName = camelCase(styleName)
+    styleName = <keyof CSSStyleDeclaration>camelCase(String(styleName))
+    if (styleName === 'length' || styleName === 'parentRule') return
     element.style[styleName] = value
   }
 }
