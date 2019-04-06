@@ -5,5 +5,5 @@ export default create({
 
   brandTitle: 'ving-ui',
   brandUrl: 'https://github.com/ekwing/ving-ui',
-  brandImage: '/ek-logo.png',
+  brandImage: './ek-logo.png',
 });

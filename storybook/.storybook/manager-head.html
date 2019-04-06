@@ -1,0 +1,12 @@
+<script>
+  var observer = new MutationObserver(function(mutations) {
+    if (document.title.match(/Storybook$/)) {
+      document.title = 'Ving-UI - A Mobile UI Toolkit for Web, Develop by EkwingFE';
+    }
+  }).observe(document.querySelector("title"), {
+    childList: true,
+    subtree: true,
+    characterData: true
+  })
+</script>
+<link rel="shortcut icon" href="./favicon.ico">
