@@ -3,7 +3,7 @@ const path = require('path')
 const Config = require('webpack-chain')
 const merge = require('webpack-merge')
 const { resolve } = require('./utils')
-const commonWebpackConfig = require('./webpack.common.js')
+const baseWebpackConfig = require('./webpack.base.js')
 const components = require('../components.json')
 
 const config = new Config()
@@ -11,10 +11,6 @@ const config = new Config()
 const externals = {}
 const utilsList = fs.readdirSync(resolve('src/utils'))
 const mixinsList = fs.readdirSync(resolve('src/mixins'))
-
-Object.keys(components).forEach(function(key) {
-  externals[`ving-ui/packages/${key}`] = `ving-ui/lib/${key}`
-})
 
 utilsList.forEach(function(fileName) {
   externals[`ving-ui/src/utils/${fileName}.js`] = `ving-ui/lib/utils/${fileName}.js`
@@ -31,13 +27,17 @@ externals.vue = {
   amd: 'vue'
 }
 
+Object.entries(components).forEach(([key, value]) => {
+  config.entry(key).add(value)
+})
+
 config
   .mode('production')
-  .entry('index')
-    .add('./src/index.ts')
-    .end()
-  .output.path(resolve('lib'))
+  .output
+    .path(resolve('lib'))
     .filename('[name].js')
+    .chunkFilename('[id].js')
+    .libraryTarget('commonjs2')
     .end()
   .externals(externals)
     .end()
@@ -66,4 +66,4 @@ config.module
     `
   })
 
-module.exports = merge(commonWebpackConfig, config.toConfig())
+module.exports = merge(baseWebpackConfig, config.toConfig())

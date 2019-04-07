@@ -12,7 +12,7 @@
   ],
   "scripts": {
     "dev": "start-storybook -s ./storybook/public -c ./storybook/.storybook",
-    "build": "rimraf lib && webpack --config build/webpack.conf.js",
+    "build": "rimraf lib && webpack --config build/webpack.conf.js && webpack --config build/webpack.common.js && webpack --config build/webpack.component.js",
     "build:doc": "rimraf docs && build-storybook -s ./storybook/public -c ./storybook/.storybook -o docs",
     "lint": "eslint src/**/* packages/**/* examples/**/*.js examples/**/*.vue build/**/*.js --fix",
     "lint:style": "stylelint **/*.{html,vue,css,sass,scss} --fix"

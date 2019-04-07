@@ -3,7 +3,7 @@ const path = require('path')
 const Config = require('webpack-chain')
 const merge = require('webpack-merge')
 const { resolve } = require('./utils')
-const commonWebpackConfig = require('./webpack.common.js')
+const baseWebpackConfig = require('./webpack.base.js')
 
 const config = new Config()
 const externals = {}
@@ -55,4 +55,4 @@ config.module
     `
   })
 
-module.exports = merge(commonWebpackConfig, config.toConfig())
+module.exports = merge(baseWebpackConfig, config.toConfig())
