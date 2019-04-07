@@ -2,7 +2,7 @@
 node_modules
 dist
 lib
-public
+docs
 
 # local env files
 .env.local

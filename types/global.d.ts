@@ -1,11 +1,4 @@
-import { PluginFunction } from 'vue'
-
-declare const VingUI: VingUI
-export default VingUI
-export interface VingUI {
-  install: PluginFunction<any>
-  version: string
-}
+import Vue from 'vue'
 
 declare global {
   interface HTMLElement {
@@ -16,3 +9,4 @@ declare global {
     }
   }
 }
+

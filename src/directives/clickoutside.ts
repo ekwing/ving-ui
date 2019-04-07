@@ -15,7 +15,7 @@ const clickoutside: DirectiveOptions & PluginObject<any> = {
   bind(el: HTMLElement, binding: DirectiveBinding, vnode: VNode) {
     const documentHandler = function(e: Event) {
       if (vnode.context && !el.contains(<Node>e.target)) {
-        vnode.context[el[clickoutsideContext].methodName]()
+        // vnode.context[el[clickoutsideContext].methodName]()
       }
     }
     el[clickoutsideContext] = {

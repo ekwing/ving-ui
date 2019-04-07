@@ -10,6 +10,11 @@ const resolve = function(dir) {
 module.exports = async ({ config, mode }) => {
   const configChain = new Config()
 
+  configChain
+    .when(process.env.NODE_ENV === 'production', config => {
+      config.devtool('none')
+    })
+
   configChain.resolve.extensions
     .merge(['.ts', '.tsx'])
 
@@ -84,7 +89,8 @@ configChain.module
       .use(require('fork-ts-checker-webpack-plugin'), [{
         vue: true,
         tslint: fs.existsSync(resolve('tslint.json')),
-        formatter: 'codeframe'
+        formatter: 'codeframe',
+        checkSyntacticErrors: false
       }])
 
   configChain.plugin('mini-css-extract')
