@@ -13,4 +13,7 @@ const stories = storiesOf('开发指南', module)
 
 const context = require.context('.', true, /\.story\.ts$/)
 
-addStories(stories, context)
+addStories(stories, context, [
+  'quick-start',
+  'custom-theme'
+])
