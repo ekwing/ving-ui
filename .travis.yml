@@ -22,7 +22,5 @@ deploy:
   skip_cleanup: true
   github_token: $GITHUB_TOKEN
   local_dir: docs
-  name: $GIT_NAME
-  email: $GIT_EMAIL
   on:
     branch: master
